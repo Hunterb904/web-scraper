@@ -1,0 +1,44 @@
+import request
+from bs4 import BeautifulSoup
+
+def scrape_website(url):
+    # Send a GET request to the URL
+    response = requests.get(url)
+    
+    # Check if the request was successful (status code 200)
+    if response.status_code == 200:
+        # Parse the HTML content of the page
+        soup = BeautifulSoup(response.text, 'html.parser')
+        
+        # Here, you can write code to extract specific information from the webpage
+        # For example, let's extract all the links on the page
+        links = soup.find_all('a')
+        
+        # Print out the links
+        for link in links:
+            print(link.get('href'))
+    else:
+        # Print an error message if the request was unsuccessful
+        print("Failed to retrieve webpage")
+
+    if response.status_code ==200:
+        soup = BeautifulSoup(response.text, 'html.parser')
+
+        paragraphs = soup.find_all('p')
+
+        for paragraph in paragraphs:
+            print(paragraph.get_text())
+
+        headings = soup.find_all(['h1','h2','h3','h4','h5','h6'])
+
+        for heading in headings:
+            print(heading.get_text())
+
+    else:
+        print("failed to retreive webpage")
+
+# URL of the website you want to scrape
+url = 'https://en.wikipedia.org/wiki/Nuclear_physics'
+
+# Call the function to scrape the website
+scrape_website(url)
